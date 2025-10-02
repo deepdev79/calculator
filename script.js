@@ -9,9 +9,12 @@ a = null;
 const operate = function (x, y) {};
 
 const choice = function (z) {
-  if (z === "C") {
+  if (z === "AC") {
     a = null;
     b = null;
+    inp.value = "";
+    return;
+  } else if (z === "C") {
     inp.value = "";
     return;
   }
@@ -25,32 +28,35 @@ const choice = function (z) {
   switch (tempCh) {
     case "+":
       result = a + b;
-      inp.value = result;
       break;
     case "-":
       result = a - b;
-      inp.value = result;
       break;
     case "*":
       result = a * b;
-      inp.value = result;
       break;
     case "/":
+      if (b === 0) {
+        inp.value = "undefined";
+        return;
+      }
       result = a / b;
-      inp.value = result;
       break;
-    // case "=":
-    //   break;
+    case "%":
+      result = a % b;
+      break;
     default:
       console.log("Error");
   }
+  inp.value = parseFloat(result.toFixed(2));
   if (z === "=") {
     a = null;
     b = null;
     return;
   } else {
-    a = b;
+    a = result;
     tempCh = z;
+    inp.value = "";
     return;
   }
 };
